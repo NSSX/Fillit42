@@ -6,7 +6,7 @@
 /*   By: zkerkeb <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/07 15:05:16 by zkerkeb           #+#    #+#             */
-/*   Updated: 2015/12/20 14:06:20 by avella           ###   ########.fr       */
+/*   Updated: 2015/12/20 15:41:36 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ char	*ft_write(int fd, char *buf, char *str)
 	return (str);
 }
 
+int		ft_check_open(int fd)
+{
+	if (fd == -1)
+		return (0);
+	return (1);
+}
+
+int		return_0(void)
+{
+	ft_putstr("error\n");
+	return (0);
+}
+
 int		main(int argc, char **argv)
 {
 	int		fd;
@@ -48,11 +61,13 @@ int		main(int argc, char **argv)
 	int		nt;
 
 	if (argc != 2)
+		return (return_0());
+	fd = open(argv[1], O_RDONLY);
+	if (!ft_check_open(fd))
 	{
 		ft_putstr("error\n");
 		return (0);
 	}
-	fd = open(argv[1], O_RDONLY);
 	nt = ft_read(fd, buf);
 	tetris = (char *)malloc(sizeof(char *) * (nt + 1));
 	fd = open(argv[1], O_RDONLY);

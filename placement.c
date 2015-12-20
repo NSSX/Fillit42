@@ -90,20 +90,19 @@ char	*backtrack(char *c, int l, char **t, int nbt)
 	while (t_c[1] != 'A' + nbt)
 	{
 		dv[1] = index_return(dv[1], t, t_c, dv[0]);
-		while (!try(dp(c), dp(t[t_c[0]]), dv[1], l) && c[dv[0][t_c[0]]] != '\0')
-			dv[1][0] = ++dv[0][t_c[0]];
-		if (try(dp(c), dp(t[t_c[0]]), dv[1], l))
+		while (!try(dp(c), dp(t[t_c[0]]), dv[1], l + 1) && c[dv[0][t_c[0]]] != '\0')
+		  dv[1][0] = ++dv[0][t_c[0]];
+		if (try(dp(c), dp(t[t_c[0]]), dv[1], l + 1))
 		{
-			try(c, dp(t[t_c[0]]), dv[1], l);
+			try(c, dp(t[t_c[0]]), dv[1], l + 1);
 			modify_2(c, t_c, dv[0], 1);
 		}
 		else if (t_c[1] != 'A')
 			modify_2(c, t_c, dv[0], 2);
 		else
 		{
-			dv[0] = iactuel_reset(dv[0], nbt);
+		  	dv[0] = iactuel_reset(dv[0], nbt);
 			c = last_modify(c, t_c, l++);
-			l++;
 		}
 	}
 	return (c);
@@ -121,7 +120,6 @@ void	ft_all(char *p)
 	tab = all_tetri(dp(p), 0, 0, nb_tetri(p));
 	length = 2;
 	c = malloc_chaine(c, length);
-	length++;
-	c = backtrack(c, length, tab, nbt);
+	c = backtrack(c, length++, tab, nbt);
 	ft_putstr(c);
 }
