@@ -114,7 +114,6 @@ void	ft_all(char *p)
 	char	*c;
 	char	**tab;
 	int		length;
-	int		*iactuel;
 	int		nbt;
 
 	c = NULL;
